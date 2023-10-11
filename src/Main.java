@@ -8,31 +8,24 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int x = sc.nextInt();
         double[] arr = new double[x];
-        System.out.println(x);
+        //    System.out.println(x);
 
-        System.out.println("Вводим массив вещественных чисел " +x+" раз(a)");
+        System.out.println("Введите массив вещественных чисел " +x+" раз(a)");
         for (int i=0; i< arr.length; i++ ){
             arr[i] = sc.nextInt();
         }
         System.out.println(Arrays.toString(arr));
 
-        double sum = 0;
-        for (int i=0; i< arr.length; i++ ){
-            sum = sum + arr[i];
-        }
-        System.out.println("Сумма элементов массива =" +sum);
-        System.out.println("Среднее арифметическое массива =" +sum/x);
+        double sum = calcSumm(arr); //расчет суммы элементов массива
+        System.out.println("Сумма элементов массива = " +sum);
+        System.out.println("Среднее арифметическое массива = " +sum/x);
 
-        bubbleSort(arr);
-        //sortBeMax(arr);
+        //bubbleSort(arr);
+        //sortByMax(arr);
+        sortByMin(arr);
         System.out.println(Arrays.toString(arr));
 
-        double mediana;
-        if (arr.length % 2 == 0)
-            mediana = (arr[arr.length/2] + arr[arr.length/2 - 1])/2;
-        else
-            mediana = arr[arr.length/2];
-
+        double mediana = calcMedian(arr); //расчет медианы после любой сортировки
         System.out.println("Медиана = " +mediana);
     }
     public static void bubbleSort(double[] arr) {
@@ -47,7 +40,7 @@ public class Main {
             }
         }
     }
-    public static void sortBeMax(double[] arr) {
+    public static void sortByMax(double[] arr) {
 
         for (int i = 0; i < arr.length - 1; i++) {
             int max = i;
@@ -63,4 +56,37 @@ public class Main {
             }
         }
     }
+
+    public static void sortByMin(double[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            double m = arr[i];
+            int min = i;
+            for (int j = i+1; j < arr.length; j++) {
+                if (arr[j] < m) {
+                    m = arr[j];
+                    min = j;
+                }
+            }
+                double temp = arr[i];
+                arr[i] = m;
+                arr[min] = temp;
+        }
+    }
+
+    public static double calcMedian(double[] arr) {
+        double mediana = 0;
+        if (arr.length % 2 == 0)
+            mediana = (arr[arr.length/2] + arr[arr.length/2 - 1])/2;
+        else
+            mediana = arr[arr.length/2];
+        return mediana;
+    }
+    public static double calcSumm(double[] arr) {
+        double sum = 0;
+        for (int i=0; i< arr.length; i++ ){
+            sum = sum + arr[i];
+        }
+        return sum;
+    }
+
 }
